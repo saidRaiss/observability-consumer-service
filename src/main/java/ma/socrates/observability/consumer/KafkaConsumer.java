@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumer {
 
     private static final String TOPIC = "topic-observability";
-    private static final String GROUP_ID = "group_id";
+    private static final String GROUP_ID = "group-consumer-service";
 
     @KafkaListener(topics = TOPIC, groupId = GROUP_ID)
-    public void consume(String message) {
-        log.info("Message received: {}", message);
+    public void consume(Message message) {
+        log.info("Received: {}", message);
     }
 
 }

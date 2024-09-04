@@ -1,6 +1,3 @@
 spring:
   application:
     name: observability-consumer-service
-  kafka:
-    bootstrap-servers: kafka:9092
-
