@@ -1,3 +1,5 @@
+server:
+  port: 8082
 spring:
   application:
     name: observability-consumer-service
@@ -12,3 +14,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+app:
+  kafka:
+    bootstrap: PLAINTEXT://kafka:9090
+    topic: topic-observability
+    config:
+      mapping: ma.socrates.observability.producer.core.model.Message:ma.socrates.observability.consumer.core.model.Message

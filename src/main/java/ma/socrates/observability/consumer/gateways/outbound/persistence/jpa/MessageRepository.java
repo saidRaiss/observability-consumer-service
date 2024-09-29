@@ -1,7 +1,6 @@
-package ma.socrates.observability.consumer;
+package ma.socrates.observability.consumer.gateways.outbound.persistence.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageRepository extends JpaRepository<MessageEntity, Long> {
 }
-

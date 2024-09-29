@@ -1,10 +1,12 @@
 package ma.socrates.observability.consumer;
 
+import ma.socrates.observability.consumer.config.KafkaConfig;
+import ma.socrates.observability.consumer.core.model.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -14,29 +16,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableKafka
-public class KafkaConfig {
-
-    private static final String BOOTSTRAP_SERVERS = "PLAINTEXT://kafka:9090";
+public class ConsumerBeansFactory {
 
     @Bean
-    public ConsumerFactory<String, Message> consumerFactory() {
+    @ConfigurationProperties(prefix = "app.kafka")
+    KafkaConfig createKafkaConfig() {
+        return new KafkaConfig();
+    }
+
+    @Bean
+    public ConsumerFactory<String, Message> createConsumerFactory(KafkaConfig kafkaConfig) {
         Map<String, Object> config = new HashMap<>();
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConfig.getBootstrap());
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
-        config.put("spring.json.type.mapping",
-                "ma.socrates.observability.producer.Message:ma.socrates.observability.consumer.Message");
+        config.put("spring.json.type.mapping", kafkaConfig.getConfig().getMapping());
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Message> kafkaListenerContainerFactory(
+    public ConcurrentKafkaListenerContainerFactory<String, Message> createListenerContainerFactory(
             ConsumerFactory<String, Message> consumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<String, Message> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
+        var factory = new ConcurrentKafkaListenerContainerFactory<String, Message> ();
         factory.setConsumerFactory(consumerFactory);
         return factory;
     }
-}
 
+}
