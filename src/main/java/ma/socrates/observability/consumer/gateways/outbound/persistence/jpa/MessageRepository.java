@@ -1,6 +1,6 @@
 package ma.socrates.observability.consumer.gateways.outbound.persistence.jpa;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MessageRepository extends JpaRepository<MessageEntity, Long> {
+public interface MessageRepository extends CrudRepository<MessageEntity, Long> {
 }

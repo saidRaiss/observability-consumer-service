@@ -18,6 +18,8 @@ public class ConsumerRepositoryImpl implements ConsumerRepository {
 
     @Override
     public Message getById(Long id) {
-        return messageRepository.getReferenceById(id).toDomain();
+        return messageRepository.findById(id)
+                .map(MessageEntity::toDomain)
+                .orElse(null);
     }
 }
