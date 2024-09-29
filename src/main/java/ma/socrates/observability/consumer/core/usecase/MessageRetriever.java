@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class MessageRetrieve {
+public class MessageRetriever {
 
     private final ConsumerRepository consumerRepository;
 

@@ -1,4 +1,4 @@
-package ma.socrates.observability.consumer.core.usecase;
+package ma.socrates.observability.consumer.gateways.inbound.broker;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

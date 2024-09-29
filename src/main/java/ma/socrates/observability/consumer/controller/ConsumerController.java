@@ -2,7 +2,7 @@ package ma.socrates.observability.consumer.controller;
 
 import lombok.AllArgsConstructor;
 import ma.socrates.observability.consumer.core.model.Message;
-import ma.socrates.observability.consumer.core.usecase.MessageRetrieve;
+import ma.socrates.observability.consumer.core.usecase.MessageRetriever;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ConsumerController {
 
-    private final MessageRetrieve messageRetrieve;
+    private final MessageRetriever messageRetrieve;
 
     @GetMapping("/message")
     public Message getMessageById(@RequestParam String id) {
