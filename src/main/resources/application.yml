@@ -3,8 +3,10 @@ server:
 spring:
   application:
     name: observability-consumer-service
+  kafka:
+    bootstrap-servers: ${app.kafka.bootstrap}
   datasource:
-    url: jdbc:mysql://mysql:3306/observabiliy_db
+    url: jdbc:mysql://localhost:3306/observabiliy_db
     username: kafkauser
     password: kafkauserpassword
   jpa:
@@ -17,7 +19,7 @@ spring:
 
 app:
   kafka:
-    bootstrap: PLAINTEXT://kafka:9090
+    bootstrap: PLAINTEXT://localhost:9090
     topic: topic-observability
     config:
       mapping: ma.socrates.observability.producer.core.model.Message:ma.socrates.observability.consumer.core.model.Message
