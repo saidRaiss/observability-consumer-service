@@ -5,7 +5,9 @@ import ma.socrates.observability.consumer.core.model.Message;
 import ma.socrates.observability.consumer.core.service.ConsumerRepository;
 import ma.socrates.observability.consumer.gateways.outbound.persistence.jpa.MessageEntity;
 import ma.socrates.observability.consumer.gateways.outbound.persistence.jpa.MessageRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @AllArgsConstructor
 public class ConsumerRepositoryImpl implements ConsumerRepository {
 
