@@ -17,7 +17,7 @@ public class KafkaConfig {
     @Getter
     @Setter
     public static class Config {
-        public String mapping;
+        private String mapping;
     }
 }
 

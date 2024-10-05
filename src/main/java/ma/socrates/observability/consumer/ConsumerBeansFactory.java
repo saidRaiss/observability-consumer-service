@@ -1,5 +1,6 @@
 package ma.socrates.observability.consumer;
 
+import lombok.extern.slf4j.Slf4j;
 import ma.socrates.observability.consumer.config.KafkaConfig;
 import ma.socrates.observability.consumer.core.model.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -15,6 +16,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Configuration
 public class ConsumerBeansFactory {
 
@@ -31,7 +33,9 @@ public class ConsumerBeansFactory {
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
         config.put("spring.json.type.mapping", kafkaConfig.getConfig().getMapping());
-        return new DefaultKafkaConsumerFactory<>(config);
+        return new DefaultKafkaConsumerFactory<>(config,
+                new StringDeserializer(),
+                new JsonDeserializer<>(Message.class));
     }
 
     @Bean

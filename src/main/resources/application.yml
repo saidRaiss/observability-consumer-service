@@ -1,10 +1,20 @@
 server:
   port: 8082
 spring:
+  kafka:
+    consumer:
+      bootstrap-servers: ${app.kafka.bootstrap}
+      group-id: group-consumer-service
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: ${app.kafka.config.mapping}
+        spring.json.value.default.type: ma.socrates.observability.consumer.core.model.Message
+
   application:
     name: observability-consumer-service
-  kafka:
-    bootstrap-servers: ${app.kafka.bootstrap}
   datasource:
     url: jdbc:mysql://localhost:3306/observabiliy_db
     username: kafkauser
